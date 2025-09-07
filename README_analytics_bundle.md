@@ -1,7 +1,7 @@
-# Own the Morning → Win the Day: Analytics Bundle
+# Own the Morning → Win the Day: Communicating with Data
 
 This bundle contains:
-- **Python analysis scripts** (`elytron/*.py`) to recreate all dashboards and figures.
+- **Python analysis scripts** (`*.py`) to recreate all dashboards and figures.
 - **Database DDL** (`CreateDB.sql`) to create the SQLite schema.
 - This **README** with setup and run instructions.
 
@@ -15,7 +15,7 @@ The scripts read from a SQLite DB at:
 ```
 /mnt/data/retail_demo.sqlite
 ```
-If your DB is elsewhere, edit the `BASE` / `DB` paths at the top of each `elytron/*.py` file.
+If your DB is elsewhere, edit the `BASE` / `DB` paths at the top of each `*.py` file.
 
 ### Creating the database
 Use the provided DDL to create an empty schema:
@@ -72,31 +72,24 @@ conn.close()
 ## 3) Recreating the dashboards
 Run any of the scripts below. Each script writes its PNG(s) to `/mnt/data/unified_assets` or `/mnt/data/ppt_assets`.
 
-- `elytron/u1_tx_trend.py` — Transactions (7‑day rolling) by store
-- `elytron/u3_hour_tx.py` — Avg transactions by hour (per store)
-- `elytron/u4_weekday_weekend_rep.py` — Weekday vs weekend (rep store)
-- `elytron/d2_hour_rev.py` — Total revenue by hour per store
-- `elytron/d6_hour_share.py` — Average hourly share of daily revenue
-- `elytron/d7_heatmaps_all_stores.py` — Hour × Category heatmaps (global blue scale; 1k ticks)
-- `elytron/u5_share_multi_units.py` — Share of multi‑item activity (per transaction vs timestamp event)
-- `elytron/d9_pairs.py` — Top product pairs (timestamp-collision heuristic)
-- `elytron/u9_price_corr_hist.py` — Price–quantity correlation distribution
-- `elytron/u7_pareto_tx.py` — SKU Pareto (by transactions)
-- `elytron/u6_category_shares.py` — Category shares per store
-- `elytron/d8_sim.py` — Simulated removal impact (balanced scenario)
+- `u1_tx_trend.py` — Transactions (7‑day rolling) by store
+- `u3_hour_tx.py` — Avg transactions by hour (per store)
+- `u4_weekday_weekend_rep.py` — Weekday vs weekend (rep store)
+- `d2_hour_rev.py` — Total revenue by hour per store
+- `d6_hour_share.py` — Average hourly share of daily revenue
+- `d7_heatmaps_all_stores.py` — Hour × Category heatmaps (global blue scale; 1k ticks)
+- `u5_share_multi_units.py` — Share of multi‑item activity (per transaction vs timestamp event)
+- `d9_pairs.py` — Top product pairs (timestamp-collision heuristic)
+- `u7_pareto_tx.py` — SKU Pareto (by transactions)
+- `u6_category_shares.py` — Category shares per store
 
 **Example:**
 ```bash
-python /mnt/data/elytron/d7_heatmaps_all_stores.py
+python /mnt/data/d7_heatmaps_all_stores.py
 ```
 
 ## 4) Notes & assumptions
 - Receipts are **single-line items**; where a “basket” is needed, we use **timestamp collisions** (same store+second).
 - Heatmaps use a **global blue color scale** across stores with **1k-step** colorbar ticks (no explicit max tick).
-- U9 uses an eligibility filter (≥14 active days & ≥3 distinct daily average prices per SKU) before computing correlations.
 
-## 5) Decks & exports (optional)
-The analysis environment also produced a PPTX and PDF. If you’re recreating locally, use the PNGs output by the scripts above and assemble in your slide tool of choice (Keynote/PowerPoint).
 
----
-Generated: 2025-09-06T12:31:48.205547Z
