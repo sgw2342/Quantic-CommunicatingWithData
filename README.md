@@ -34,6 +34,8 @@ Typical mapping used in the analysis (adjust if your source names differ):
 - `cs_cats.csv` → (if present, category helper table; not required by charts)
 
 > Ensure column order matches the schema in `CreateDB.sql`. If your CSVs have a different order, load via a small Python script and pass columns explicitly.
+>
+> For reference, the full original source data file is included: coffeeshop-all-orig-data.csv
 
 **Example Python loader (no headers):**
 ```python
